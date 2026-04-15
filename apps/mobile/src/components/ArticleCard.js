@@ -1,18 +1,25 @@
 import React from "react";
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+
+const IMAGE_HEIGHT_RATIO = 0.35;
+const CONTENT_HEIGHT_RATIO = 1 - IMAGE_HEIGHT_RATIO;
+const SUMMARY_LINE_HEIGHT = 23;
+const RESERVED_CONTENT_HEIGHT = 158;
+const MIN_SUMMARY_LINES = 2;
+const MAX_SUMMARY_LINES = 10;
 
 export default function ArticleCard({ article, height, onPress }) {
   const cardHeight = height || 620;
   const titleLines = cardHeight >= 640 ? 3 : 2;
   const summaryLines = Math.max(
-    2,
-    Math.min(10, Math.floor((cardHeight * 0.55 - 158) / 23))
+    MIN_SUMMARY_LINES,
+    Math.min(
+      MAX_SUMMARY_LINES,
+      Math.floor(
+        (cardHeight * CONTENT_HEIGHT_RATIO - RESERVED_CONTENT_HEIGHT) /
+          SUMMARY_LINE_HEIGHT,
+      ),
+    ),
   );
 
   return (
@@ -86,11 +93,12 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: "45%",
+    height: `${IMAGE_HEIGHT_RATIO * 100}%`,
+    resizeMode: "contain",
   },
   imagePlaceholder: {
     width: "100%",
-    height: "45%",
+    height: `${IMAGE_HEIGHT_RATIO * 100}%`,
     backgroundColor: "#e0e0e0",
   },
   content: {
@@ -122,7 +130,7 @@ const styles = StyleSheet.create({
   },
   summary: {
     fontSize: 15,
-    lineHeight: 23,
+    lineHeight: SUMMARY_LINE_HEIGHT,
     color: "#444",
     flex: 1,
     flexShrink: 1,

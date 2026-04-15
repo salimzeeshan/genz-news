@@ -8,6 +8,13 @@ import {
 } from "react-native";
 
 export default function ArticleCard({ article, height, onPress }) {
+  const cardHeight = height || 620;
+  const titleLines = cardHeight >= 640 ? 3 : 2;
+  const summaryLines = Math.max(
+    2,
+    Math.min(10, Math.floor((cardHeight * 0.55 - 158) / 23))
+  );
+
   return (
     <TouchableOpacity
       style={[styles.card, height && { height }]}
@@ -28,21 +35,39 @@ export default function ArticleCard({ article, height, onPress }) {
       <View style={styles.content}>
         {/* Category pill */}
         <View style={styles.categoryPill}>
-          <Text style={styles.categoryText}>
+          <Text
+            style={styles.categoryText}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
             {article.category?.toUpperCase()}
           </Text>
         </View>
 
         {/* Gen Z title */}
-        <Text style={styles.title}>{article.genz_title}</Text>
+        <Text
+          style={styles.title}
+          numberOfLines={titleLines}
+          ellipsizeMode="tail"
+        >
+          {article.genz_title}
+        </Text>
 
         {/* Gen Z summary */}
-        <Text style={styles.summary}>{article.genz_summary}</Text>
+        <Text
+          style={styles.summary}
+          numberOfLines={summaryLines}
+          ellipsizeMode="tail"
+        >
+          {article.genz_summary}
+        </Text>
 
         {/* Source + time */}
         <View style={styles.footer}>
-          <Text style={styles.source}>{article.original_source}</Text>
-          <Text style={styles.time}>
+          <Text style={styles.source} numberOfLines={1} ellipsizeMode="tail">
+            {article.original_source}
+          </Text>
+          <Text style={styles.time} numberOfLines={1} ellipsizeMode="tail">
             {new Date(article.created_at).toLocaleDateString()}
           </Text>
         </View>
@@ -72,6 +97,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     justifyContent: "space-between",
+    overflow: "hidden",
   },
   categoryPill: {
     alignSelf: "flex-start",
@@ -92,13 +118,16 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     lineHeight: 30,
     color: "#111",
+    flexShrink: 0,
   },
   summary: {
     fontSize: 15,
     lineHeight: 23,
     color: "#444",
     flex: 1,
+    flexShrink: 1,
     marginTop: 12,
+    overflow: "hidden",
   },
   footer: {
     flexDirection: "row",
@@ -106,9 +135,11 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   source: {
+    flex: 1,
     fontSize: 12,
     color: "#999",
     fontWeight: "500",
+    marginRight: 8,
   },
   time: {
     fontSize: 12,

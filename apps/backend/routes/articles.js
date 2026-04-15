@@ -5,6 +5,25 @@ const {
   getPendingArticles,
   updateArticleStatus,
 } = require("../database/supabase");
+const { createClient } = require("@supabase/supabase-js");
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_ANON_KEY,
+);
+
+// PATCH /api/articles/publish-all — publishes every pending article at once
+router.patch("/publish-all", adminOnly, async (req, res) => {
+  try {
+    const { error } = await supabase
+      .from("articles")
+      .update({ status: "published" })
+      .eq("status", "pending");
+    if (error) throw error;
+    res.json({ success: true, message: "All pending articles published" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 // Simple admin auth middleware
 // In production use proper auth — this is fine for personal projects

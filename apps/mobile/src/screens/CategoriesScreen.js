@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Text,
   FlatList,
@@ -20,19 +20,27 @@ const CATEGORIES = [
   "science",
   "business",
 ];
+const CATEGORY_RAIL_HEIGHT = 58;
 
 export default function CategoriesScreen() {
   const { articles } = useArticles();
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
   const { height } = useWindowDimensions();
+  const listRef = useRef(null);
   const [selected, setSelected] = useState("all");
-  const cardHeight = Math.min((height - insets.top - 64) * 0.72, 560);
+  const cardHeight = (height - insets.top - CATEGORY_RAIL_HEIGHT) * 0.82;
+  const snapInterval = cardHeight + 16;
 
   const filtered =
     selected === "all"
       ? articles
       : articles.filter((a) => a.category === selected);
+
+  function selectCategory(category) {
+    setSelected(category);
+    listRef.current?.scrollToOffset({ offset: 0, animated: false });
+  }
 
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
@@ -47,7 +55,7 @@ export default function CategoriesScreen() {
         renderItem={({ item }) => (
           <TouchableOpacity
             style={[styles.pill, selected === item && styles.pillActive]}
-            onPress={() => setSelected(item)}
+            onPress={() => selectCategory(item)}
           >
             <Text
               style={[
@@ -63,8 +71,14 @@ export default function CategoriesScreen() {
 
       {/* Filtered article list */}
       <FlatList
+        ref={listRef}
         data={filtered}
         keyExtractor={(item) => item.id}
+        pagingEnabled
+        snapToInterval={snapInterval}
+        snapToAlignment="start"
+        decelerationRate="fast"
+        showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
           <ArticleCard
             article={item}
@@ -76,6 +90,9 @@ export default function CategoriesScreen() {
         ListEmptyComponent={
           <Text style={styles.empty}>No articles in this category yet</Text>
         }
+        removeClippedSubviews
+        maxToRenderPerBatch={5}
+        windowSize={5}
       />
     </SafeAreaView>
   );
@@ -88,7 +105,7 @@ const styles = StyleSheet.create({
   },
   categoryRail: {
     flexGrow: 0,
-    height: 58,
+    height: CATEGORY_RAIL_HEIGHT,
   },
   pills: {
     paddingHorizontal: 16,

@@ -39,4 +39,4 @@ async function runPipeline() {
 cron.schedule("0 */4 * * *", runPipeline);
 
 // Also run once immediately when server starts
-// runPipeline();
+runPipeline();

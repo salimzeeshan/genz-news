@@ -3,7 +3,13 @@ import { ActivityIndicator, Text, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import colors from "../theme/colors";
 
-export default function LoadingSpinner({ message = "Loading..." }) {
+type LoadingSpinnerProps = {
+  message?: string;
+};
+
+export default function LoadingSpinner({
+  message = "Loading...",
+}: LoadingSpinnerProps) {
   return (
     <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
       <ActivityIndicator size="large" color={colors.ink} />

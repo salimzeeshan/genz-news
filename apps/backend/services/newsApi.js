@@ -10,6 +10,10 @@ async function fetchNews() {
       },
     });
 
+    console.log(
+      `Fetched ${response.data.articles.length} articles from NewsAPI`,
+    );
+
     return response.data.articles.filter(
       (a) => a.url && a.title && a.description,
     );

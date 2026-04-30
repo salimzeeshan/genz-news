@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   },
   pillText: {
     fontSize: 13,
-    color: colors.ink,
+    color: 'black',
     fontWeight: "500",
     textTransform: "capitalize",
   },

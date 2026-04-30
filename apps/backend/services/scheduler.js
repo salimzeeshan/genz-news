@@ -8,7 +8,7 @@ async function runPipeline() {
   console.log("Pipeline started:", new Date().toISOString());
 
   const articles = await fetchNews();
-  console.log(`Fetched ${articles.length} articles`);
+  console.log(`Fetched ${articles} articles`);
 
   let saved = 0;
   let skipped = 0;

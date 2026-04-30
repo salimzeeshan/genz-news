@@ -4,6 +4,6 @@ const colors = {
   border: "#EEEEEE",
   background: "#000000",
   surface: "#222831",
-};
+} as const;
 
 export default colors;

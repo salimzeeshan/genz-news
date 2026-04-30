@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import {
   FlatList,
-  View,
   Text,
   useWindowDimensions,
   StyleSheet,
@@ -16,13 +15,14 @@ import { useArticles } from "../context/ArticlesContext";
 import ArticleCard from "../components/ArticleCard";
 import LoadingSpinner from "../components/LoadingSpinner";
 import colors from "../theme/colors";
+import type { Article } from "../types/article";
 
 export default function FeedScreen() {
   const { articles, loading, error, refreshing, refresh } = useArticles();
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
   const insets = useSafeAreaInsets();
   const { height } = useWindowDimensions();
-  const listRef = useRef(null);
+  const listRef = useRef<FlatList<Article> | null>(null);
   const cardHeight = (height - insets.top) * 0.82;
   const snapInterval = cardHeight + 16;
 
@@ -48,7 +48,7 @@ export default function FeedScreen() {
         decelerationRate="fast"
         showsVerticalScrollIndicator={false}
         refreshControl={
-          <RefreshControl refreshing={!!refreshing} onRefresh={refresh} />
+          <RefreshControl refreshing={refreshing} onRefresh={refresh} />
         }
         renderItem={({ item }) => (
           <ArticleCard

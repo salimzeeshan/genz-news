@@ -8,10 +8,14 @@ import {
   RefreshControl,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 import { useArticles } from "../context/ArticlesContext";
 import ArticleCard from "../components/ArticleCard";
 import LoadingSpinner from "../components/LoadingSpinner";
+import colors from "../theme/colors";
 
 export default function FeedScreen() {
   const { articles, loading, error, refreshing, refresh } = useArticles();
@@ -38,7 +42,6 @@ export default function FeedScreen() {
         ref={listRef}
         data={articles}
         keyExtractor={(item) => item.id}
-        // Each card snaps to fill the safe screen area.
         pagingEnabled
         snapToInterval={snapInterval}
         snapToAlignment="start"
@@ -51,13 +54,9 @@ export default function FeedScreen() {
           <ArticleCard
             article={item}
             height={cardHeight}
-            onPress={() =>
-              // Pass full article data to ArticleScreen via navigation params
-              navigation.navigate("Article", { article: item })
-            }
+            onPress={() => navigation.navigate("Article", { article: item })}
           />
         )}
-        // Performance optimisations for large lists
         removeClippedSubviews
         maxToRenderPerBatch={5}
         windowSize={5}
@@ -69,7 +68,7 @@ export default function FeedScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: colors.background,
   },
   errorContainer: {
     flex: 1,
@@ -79,7 +78,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     fontSize: 15,
-    color: "#e00",
+    color: colors.ink,
     textAlign: "center",
   },
 });

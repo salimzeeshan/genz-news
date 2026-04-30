@@ -1,6 +1,5 @@
 const OpenAI = require("openai");
 
-// Groq uses the OpenAI SDK — just swap the baseURL
 const client = new OpenAI({
   apiKey: process.env.GROQ_API_KEY,
   baseURL: "https://api.groq.com/openai/v1",
@@ -28,7 +27,7 @@ Return ONLY this JSON format:
 }`;
 
     const response = await client.chat.completions.create({
-      model: "llama-3.1-8b-instant", // free on Groq
+      model: "llama-3.1-8b-instant",
       max_tokens: 400,
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
@@ -38,7 +37,6 @@ Return ONLY this JSON format:
 
     const raw = response.choices[0].message.content;
 
-    // Strip markdown code fences if model adds them
     const clean = raw.replace(/```json|```/g, "").trim();
     const parsed = JSON.parse(clean);
 

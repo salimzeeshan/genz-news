@@ -5,11 +5,11 @@ import { Text } from "react-native";
 import FeedScreen from "../screens/FeedScreen";
 import ArticleScreen from "../screens/ArticleScreen";
 import CategoriesScreen from "../screens/CategoriesScreen";
+import colors from "../theme/colors";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-// Feed tab is actually a stack so ArticleScreen can slide in on top
 function FeedStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -33,7 +33,13 @@ export default function TabNavigator() {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarStyle: { paddingBottom: 5 },
+        tabBarActiveTintColor: colors.ink,
+        tabBarInactiveTintColor: colors.muted,
+        tabBarStyle: {
+          paddingBottom: 5,
+          backgroundColor: colors.surface,
+          borderTopColor: colors.border,
+        },
       }}
     >
       <Tab.Screen

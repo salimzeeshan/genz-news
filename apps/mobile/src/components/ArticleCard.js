@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import colors from "../theme/colors";
 
 const IMAGE_HEIGHT_RATIO = 0.35;
 const CONTENT_HEIGHT_RATIO = 1 - IMAGE_HEIGHT_RATIO;
@@ -85,11 +86,13 @@ export default function ArticleCard({ article, height, onPress }) {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#fff",
+    backgroundColor: colors.surface,
     borderRadius: 20,
     overflow: "hidden",
-    marginHorizontal: 16,
+    marginHorizontal: 0,
     marginVertical: 8,
+    borderWidth: 0,
+    borderColor: colors.border,
   },
   image: {
     width: "100%",
@@ -99,7 +102,7 @@ const styles = StyleSheet.create({
   imagePlaceholder: {
     width: "100%",
     height: `${IMAGE_HEIGHT_RATIO * 100}%`,
-    backgroundColor: "#e0e0e0",
+    backgroundColor: colors.border,
   },
   content: {
     flex: 1,
@@ -109,7 +112,7 @@ const styles = StyleSheet.create({
   },
   categoryPill: {
     alignSelf: "flex-start",
-    backgroundColor: "#f0f0f0",
+    backgroundColor: colors.muted,
     paddingHorizontal: 12,
     paddingVertical: 4,
     borderRadius: 20,
@@ -119,19 +122,19 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: "600",
     letterSpacing: 1,
-    color: "#555",
+    color: colors.surface,
   },
   title: {
     fontSize: 22,
     fontWeight: "700",
     lineHeight: 30,
-    color: "#111",
+    color: colors.ink,
     flexShrink: 0,
   },
   summary: {
     fontSize: 15,
     lineHeight: SUMMARY_LINE_HEIGHT,
-    color: "#444",
+    color: colors.muted,
     flex: 1,
     flexShrink: 1,
     marginTop: 12,
@@ -145,12 +148,12 @@ const styles = StyleSheet.create({
   source: {
     flex: 1,
     fontSize: 12,
-    color: "#999",
+    color: colors.muted,
     fontWeight: "500",
     marginRight: 8,
   },
   time: {
     fontSize: 12,
-    color: "#999",
+    color: colors.muted,
   },
 });

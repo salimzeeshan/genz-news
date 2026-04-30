@@ -10,7 +10,6 @@ async function fetchNews() {
       },
     });
 
-    // Filter out articles with no content or URL
     return response.data.articles.filter(
       (a) => a.url && a.title && a.description,
     );

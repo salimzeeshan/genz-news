@@ -10,13 +10,13 @@ import {
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as WebBrowser from "expo-web-browser";
+import colors from "../theme/colors";
 
 export default function ArticleScreen() {
   const route = useRoute();
   const navigation = useNavigation();
-  const { article } = route.params; // article passed from FeedScreen
+  const { article } = route.params;
 
-  // Opens the original article URL in an in-app browser
   async function openOriginal() {
     await WebBrowser.openBrowserAsync(article.original_url);
   }
@@ -71,14 +71,14 @@ export default function ArticleScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: colors.background,
   },
   backButton: {
     padding: 16,
   },
   backText: {
     fontSize: 16,
-    color: "#333",
+    color: colors.ink,
   },
   image: {
     width: "100%",
@@ -91,35 +91,35 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: "600",
     letterSpacing: 1,
-    color: "#888",
+    color: colors.muted,
     marginBottom: 10,
   },
   title: {
     fontSize: 26,
     fontWeight: "700",
     lineHeight: 34,
-    color: "#111",
+    color: colors.ink,
   },
   source: {
     fontSize: 13,
-    color: "#aaa",
+    color: colors.muted,
     marginTop: 8,
     marginBottom: 20,
   },
   summary: {
     fontSize: 17,
     lineHeight: 27,
-    color: "#333",
+    color: colors.ink,
   },
   readButton: {
     marginTop: 32,
-    backgroundColor: "#111",
+    backgroundColor: colors.ink,
     paddingVertical: 16,
     borderRadius: 12,
     alignItems: "center",
   },
   readButtonText: {
-    color: "#fff",
+    color: colors.background,
     fontSize: 15,
     fontWeight: "600",
   },

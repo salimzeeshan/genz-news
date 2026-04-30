@@ -7,7 +7,6 @@ import TabNavigator from "./src/navigation/TabNavigator";
 
 export default function App() {
   return (
-    // ArticlesProvider wraps everything so all screens share the same data
     <ArticlesProvider>
       <SafeAreaProvider>
         <NavigationContainer>

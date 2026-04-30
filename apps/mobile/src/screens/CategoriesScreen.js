@@ -10,6 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { useArticles } from "../context/ArticlesContext";
 import ArticleCard from "../components/ArticleCard";
+import colors from "../theme/colors";
 
 const CATEGORIES = [
   "all",
@@ -101,7 +102,7 @@ export default function CategoriesScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: colors.background,
   },
   categoryRail: {
     flexGrow: 0,
@@ -116,24 +117,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 10,
-    backgroundColor: "#f0f0f0",
+    backgroundColor: colors.border,
     marginRight: 8,
   },
   pillActive: {
-    backgroundColor: "#111",
+    backgroundColor: colors.ink,
   },
   pillText: {
     fontSize: 13,
-    color: "#555",
+    color: colors.ink,
     fontWeight: "500",
     textTransform: "capitalize",
   },
   pillTextActive: {
-    color: "#fff",
+    color: colors.background,
   },
   empty: {
     textAlign: "center",
-    color: "#aaa",
+    color: colors.muted,
     marginTop: 60,
     fontSize: 15,
   },

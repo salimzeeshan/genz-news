@@ -22,7 +22,6 @@ export function ArticlesProvider({ children }) {
     }
   }
 
-  // Pull-to-refresh handler
   async function refresh() {
     setRefreshing(true);
     await loadArticles();
@@ -39,7 +38,7 @@ export function ArticlesProvider({ children }) {
         articles,
         loading,
         error,
-        refreshing: !!refreshing, // ← always a strict boolean
+        refreshing: !!refreshing,
         refresh,
       }}
     >
@@ -48,7 +47,6 @@ export function ArticlesProvider({ children }) {
   );
 }
 
-// Custom hook — use this in any screen: const { articles } = useArticles()
 export function useArticles() {
   return useContext(ArticlesContext);
 }

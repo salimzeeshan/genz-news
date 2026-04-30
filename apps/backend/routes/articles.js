@@ -11,7 +11,6 @@ const supabase = createClient(
   process.env.SUPABASE_ANON_KEY,
 );
 
-// PATCH /api/articles/publish-all — publishes every pending article at once
 router.patch("/publish-all", adminOnly, async (req, res) => {
   try {
     const { error } = await supabase
@@ -25,8 +24,6 @@ router.patch("/publish-all", adminOnly, async (req, res) => {
   }
 });
 
-// Simple admin auth middleware
-// In production use proper auth — this is fine for personal projects
 function adminOnly(req, res, next) {
   const token = req.headers["x-admin-token"];
   if (token !== process.env.ADMIN_SECRET) {
@@ -35,7 +32,6 @@ function adminOnly(req, res, next) {
   next();
 }
 
-// GET /api/articles — mobile app fetches published articles
 router.get("/", async (req, res) => {
   try {
     const articles = await getPublishedArticles();
@@ -45,7 +41,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// GET /api/articles/pending — admin panel fetches articles to review
 router.get("/pending", adminOnly, async (req, res) => {
   try {
     const articles = await getPendingArticles();
@@ -55,8 +50,6 @@ router.get("/pending", adminOnly, async (req, res) => {
   }
 });
 
-// PATCH /api/articles/:id — admin approves or rejects an article
-// Body: { "status": "published" } or { "status": "rejected" }
 router.patch("/:id", adminOnly, async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;

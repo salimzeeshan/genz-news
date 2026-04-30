@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import colors from "../theme/colors";
+import type { Article } from "../types/article";
 
 const IMAGE_HEIGHT_RATIO = 0.35;
 const CONTENT_HEIGHT_RATIO = 1 - IMAGE_HEIGHT_RATIO;
@@ -9,7 +10,17 @@ const RESERVED_CONTENT_HEIGHT = 158;
 const MIN_SUMMARY_LINES = 2;
 const MAX_SUMMARY_LINES = 10;
 
-export default function ArticleCard({ article, height, onPress }) {
+type ArticleCardProps = {
+  article: Article;
+  height?: number;
+  onPress: () => void;
+};
+
+export default function ArticleCard({
+  article,
+  height,
+  onPress,
+}: ArticleCardProps) {
   const cardHeight = height || 620;
   const titleLines = cardHeight >= 640 ? 3 : 2;
   const summaryLines = Math.max(

@@ -7,5 +7,10 @@ export type AppStackParamList = {
   Article: { article: Article };
 };
 
+export type AppTabParamList = {
+  FeedTab: undefined;
+  CategoriesTab: undefined;
+};
+
 export type AppNavigationProp = NavigationProp<AppStackParamList>;
 export type ArticleRouteProp = RouteProp<AppStackParamList, "Article">;

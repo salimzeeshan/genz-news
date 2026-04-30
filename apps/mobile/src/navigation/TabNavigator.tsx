@@ -6,9 +6,10 @@ import FeedScreen from "../screens/FeedScreen";
 import ArticleScreen from "../screens/ArticleScreen";
 import CategoriesScreen from "../screens/CategoriesScreen";
 import colors from "../theme/colors";
+import type { AppStackParamList, AppTabParamList } from "./types";
 
-const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator<AppTabParamList>();
+const Stack = createStackNavigator<AppStackParamList>();
 
 function FeedStack() {
   return (

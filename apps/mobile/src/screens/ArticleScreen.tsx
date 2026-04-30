@@ -11,10 +11,14 @@ import { useRoute, useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as WebBrowser from "expo-web-browser";
 import colors from "../theme/colors";
+import type {
+  AppNavigationProp,
+  ArticleRouteProp,
+} from "../navigation/types";
 
 export default function ArticleScreen() {
-  const route = useRoute();
-  const navigation = useNavigation();
+  const route = useRoute<ArticleRouteProp>();
+  const navigation = useNavigation<AppNavigationProp>();
   const { article } = route.params;
 
   async function openOriginal() {
@@ -24,7 +28,6 @@ export default function ArticleScreen() {
   return (
     <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
       <ScrollView>
-        {/* Back button */}
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => navigation.goBack()}
@@ -41,22 +44,17 @@ export default function ArticleScreen() {
         )}
 
         <View style={styles.content}>
-          {/* Category */}
           <Text style={styles.category}>{article.category?.toUpperCase()}</Text>
 
-          {/* Gen Z title */}
           <Text style={styles.title}>{article.genz_title}</Text>
 
-          {/* Source */}
           <Text style={styles.source}>
             via {article.original_source} ·{" "}
             {new Date(article.created_at).toLocaleDateString()}
           </Text>
 
-          {/* Full Gen Z summary */}
           <Text style={styles.summary}>{article.genz_summary}</Text>
 
-          {/* Read original article button */}
           <TouchableOpacity style={styles.readButton} onPress={openOriginal}>
             <Text style={styles.readButtonText}>
               Read the full article (no cap)

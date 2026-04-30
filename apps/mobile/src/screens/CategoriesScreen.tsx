@@ -12,6 +12,7 @@ import { useArticles } from "../context/ArticlesContext";
 import ArticleCard from "../components/ArticleCard";
 import colors from "../theme/colors";
 import type { Article } from "../types/article";
+import type { AppNavigationProp } from "../navigation/types";
 
 const CATEGORIES = [
   "all",
@@ -29,7 +30,7 @@ type Category = (typeof CATEGORIES)[number];
 
 export default function CategoriesScreen() {
   const { articles } = useArticles();
-  const navigation = useNavigation<any>();
+  const navigation = useNavigation<AppNavigationProp>();
   const insets = useSafeAreaInsets();
   const { height } = useWindowDimensions();
   const listRef = useRef<FlatList<Article> | null>(null);
@@ -127,7 +128,7 @@ const styles = StyleSheet.create({
   },
   pillText: {
     fontSize: 13,
-    color: colors.background,
+    color: colors.ink,
     fontWeight: "500",
     textTransform: "capitalize",
   },

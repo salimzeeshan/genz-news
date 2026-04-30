@@ -16,10 +16,11 @@ import ArticleCard from "../components/ArticleCard";
 import LoadingSpinner from "../components/LoadingSpinner";
 import colors from "../theme/colors";
 import type { Article } from "../types/article";
+import type { AppNavigationProp } from "../navigation/types";
 
 export default function FeedScreen() {
   const { articles, loading, error, refreshing, refresh } = useArticles();
-  const navigation = useNavigation<any>();
+  const navigation = useNavigation<AppNavigationProp>();
   const insets = useSafeAreaInsets();
   const { height } = useWindowDimensions();
   const listRef = useRef<FlatList<Article> | null>(null);
